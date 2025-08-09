@@ -51,69 +51,11 @@ When you decide to release this work, convert the state to migrations (see "Conv
 4. Push to GitHub.
 
 **C — Deploy to Production**
-
-1. Pull latest code to server (migrations included).
-2. Ensure `DATABASE_URL` is configured in environment.
-3. Run:
-   ```bash
-   npx prisma migrate deploy
-   ```
-4. Restart your application if needed.
-
-First-Time Setup on Production VPS:
-#### (Fresh database, no tables yet)
-A. Prepare Server
-SSH into VPS
-ssh user@your_vps_ip
-
-Install dependencies (Node.js, npm, PostgreSQL client, etc.).
-
-Clone your repo
-git clone https://github.com/yourusername/yourrepo.git
-cd yourrepo
-
-Install npm packages
-npm install
-
-B. Database & Prisma Setup
-Set up .env with production database URL.
-
-Run Prisma migration (creates schema & migration history):
-npx prisma migrate deploy
-
-Note: Use deploy in production, not dev.
-migrate deploy applies already-created migrations without creating new ones.
-
-Generate Prisma client
-npx prisma generate
-
-C. Start Application
-Example using PM2:
-pm2 start dist/index.js --name myapp
-pm2 save
-
-2️⃣ Nth-Time Deployment (Updates)
-(You already have migrations from dev)
-Push code to GitHub from your local machine.
-
-On VPS:
-ssh user@your_vps_ip
-cd yourrepo
-git pull origin main
-npm install
-
-Run migrations (apply new ones only):
-npx prisma migrate deploy
-
-Generate updated Prisma client:
-npx prisma generate
-
-Restart server:
-pm2 restart myapp
-
+If you want to setup for Production on VPS Follow this Guide: [click here](https://github.com/teckybot/guide-box/blob/main/PostgresPrisma-Guide/deploy_to_production.md)
 ---
 
-### Converting prototype (db push-only) to migrations (before deployment)
+## Before deployment
+#### Converting prototype (db push-only) to migrations (before deployment)
 
 If you iterated with `db push` and never ran `migrate dev`, do this **before** deploying:
 
@@ -143,15 +85,6 @@ If you iterated with `db push` and never ran `migrate dev`, do this **before** d
 - **Environment variables:** Ensure `DATABASE_URL` is set in CI/CD secrets and points to the correct environment (staging/production).
 
 - **Staging first:** Always apply migrations in a staging environment that mirrors production, run smoke tests, then deploy to production.
-
----
-
-
-### Seeding Data
-
-- Use a seed script to populate initial data (roles, admin user, sample data).
-- Simple pattern: create `prisma/seed.js` or `prisma/seed.ts` and run it as part of `npm run seed` or via your CI.\`
-- Optionally configure `prisma`'s `db seed` behavior in `package.json`.
 
 ---
 
