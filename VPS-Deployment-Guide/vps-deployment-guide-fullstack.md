@@ -1,4 +1,3 @@
-
 ## Deploying MERN Stack Project on Hostinger VPS
 
 - Preparing the VPS Environment

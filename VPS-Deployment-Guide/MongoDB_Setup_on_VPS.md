@@ -1,7 +1,6 @@
 
 ## Setup MongoDB on VPS
 
-
 Install MongoDB
 
 ```bash
